@@ -1,0 +1,27 @@
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\obj\Debug\Negocio (BLL y DAL).csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\obj\Debug\Negocio (BLL y DAL).csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\obj\Debug\Data access layer (DAL).dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\obj\Debug\Data access layer (DAL).pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\bin\Debug\Data access layer (DAL).dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\bin\Debug\Data access layer (DAL).pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\bin\Debug\Dominio.dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\bin\Debug\Dominio.pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 2\Conexiones a DB\Desarrollo App Conexión a DB\Data access layer (DAL)\obj\Debug\Negocio .234F0A04.Up2Date
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\bin\Debug\Data access layer (DAL).dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\bin\Debug\Data access layer (DAL).pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\bin\Debug\Dominio.dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\bin\Debug\Dominio.pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\obj\Debug\Negocio (BLL y DAL).csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\obj\Debug\Negocio (BLL y DAL).csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\obj\Debug\Negocio .234F0A04.Up2Date
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\obj\Debug\Data access layer (DAL).dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Data access layer (DAL)\obj\Debug\Data access layer (DAL).pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\bin\Debug\Data access layer (DAL).dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\bin\Debug\Data access layer (DAL).pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\bin\Debug\Dominio.dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\bin\Debug\Dominio.pdb
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\obj\Debug\Negocio (BLL y DAL).csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\obj\Debug\Negocio (BLL y DAL).csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\obj\Debug\Negocio .234F0A04.Up2Date
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\obj\Debug\Data access layer (DAL).dll
+C:\Users\Usuario\Desktop\Curso C# Nivel 3\GestorDiscos\Negocio (BLL y DAL)\obj\Debug\Data access layer (DAL).pdb

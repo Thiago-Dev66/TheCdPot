@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Dominio/Dominio (Modelo Compartido).csproj" Id="a510473d-2e2f-4cfd-b237-0d5c890583dd" />
+  <Project Path="GestorDiscos.csproj" Id="dd9b9dc7-fdfe-4e06-98e9-e5a7c134b368" />
+  <Project Path="Negocio (BLL y DAL)/Negocio (BLL y DAL).csproj" Id="f9299b2d-62e1-4299-adc4-658dd7fb6754" />
+</Solution>
