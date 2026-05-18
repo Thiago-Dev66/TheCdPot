@@ -11,73 +11,14 @@ namespace Negocio
 {
     public class DiscosServer
     {
-        public List<Disco> ListaDisco()
-        {
-            List<Disco> ListaD = new List<Disco>();
-
-            SqlConnection conexion = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
-
-            conexion.ConnectionString = "server=(local)\\SQLEXPRESS; database=DISCOS_DB; integrated security=true;";
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "select Titulo, FechaLanzamiento, CantidadCanciones, UrlImagenTapa as Cover, e.Descripcion as Estilo, t.Descripcion as Formato, E.Id as IdEstilo, T.Id as IdEdicion, D.Id as IdDisco, D.Activo from DISCOS D, ESTILOS E, TIPOSEDICION T where e.Id = D.IdEstilo and t.Id = D.IdTipoEdicion and D.Activo = 1";
-            cmd.Connection = conexion;
-
-            conexion.Open();
-            reader = cmd.ExecuteReader(); 
-
-            try
-            {
-                while (reader.Read())
-                {   
-                    Disco disco1 = new Disco();
-
-                    disco1.Id = (int)reader["IdDisco"];
-                    disco1.Titulo = (string)reader["Titulo"];
-                    disco1.FechaLanzamiento = reader.GetDateTime(1);
-                    disco1.CantidadDeCanciones = (int)reader["CantidadCanciones"];
-
-                    //if(!(reader.IsDBNull(reader.GetOrdinal("Cover"))))
-                    //disco1.UrlImagenCover = (string)reader["Cover"];
-                    if (!(reader["Cover"] is DBNull))
-                        disco1.UrlImagenCover = (string)reader["Cover"];
-
-                    disco1.Estilo = new Estilos();
-                    disco1.Estilo.Descripcion = (string)reader["Estilo"];
-                    disco1.Estilo.Id = (int)reader["IdEstilo"];
-                    disco1.Edicion = new TipoEdicion();
-                    disco1.Edicion.Id = (int)reader["IdEdicion"];
-                    disco1.Edicion.Description = (string)reader["Formato"];
-                    disco1.Activo = (bool)reader["Activo"];
-
-
-                    ListaD.Add(disco1);
-                }
-
-                return ListaD;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                conexion.Close();
-            }
-
-        }
-
-        public List<Disco> listarConSP() 
+        public List<Disco> Listar() 
         {
             List<Disco> discosLista = new List<Disco>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                string consulta = "listarDiscos";
-
-                datos.SetearConsulta(consulta);
+                datos.SetearConsultaSP("listarDiscos");
                 datos.EjecutarReader();
 
                 while (datos.Reader.Read())
@@ -116,10 +57,13 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("INSERT INTO DISCOS (Titulo, FechaLanzamiento, CantidadCanciones, IdEstilo, IdTipoEdicion, UrlImagenTapa) VALUES ('" + disco.Titulo + "', '" + disco.FechaLanzamiento + "', " + disco.CantidadDeCanciones + ", @IdEstilo, @IdTipoEdicion, @UrlImagenTapa)");
+                datos.SetearConsultaSP("agregar");
+                datos.SetearParametros("@Titulo", disco.Titulo);
+                datos.SetearParametros("@FechaLanzamiento", disco.FechaLanzamiento);
+                datos.SetearParametros("@CantidadCanciones", disco.CantidadDeCanciones);
+                datos.SetearParametros("@UrlImagenTapa", disco.UrlImagenCover);
                 datos.SetearParametros("@IdEstilo", disco.Estilo.Id);
                 datos.SetearParametros("@IdTipoEdicion", disco.Edicion.Id);
-                datos.SetearParametros("@UrlImagenTapa", disco.UrlImagenCover);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -130,17 +74,38 @@ namespace Negocio
             finally
             {
                 datos.ConnectionClose();
-
             }
         }
+        public Disco GetDiscoById(int id)
+        {
+            var disco = new Disco()
+            {
+                Estilo = new Estilos(),
+                Edicion = new TipoEdicion()
+            };
+            var datos = new AccesoDatos();
 
+            datos.SetearConsultaSP("GetById");
+            datos.SetearParametros("@id", id);
+            datos.EjecutarReader();
+
+            datos.Reader.Read();
+            disco.Titulo = (string)datos.Reader["Titulo"];
+            disco.FechaLanzamiento = (DateTime)datos.Reader["FechaLanzamiento"];
+            disco.CantidadDeCanciones = (int)datos.Reader["CantidadCanciones"];
+            disco.UrlImagenCover = (string)datos.Reader["UrlImagenTapa"];
+            disco.Estilo.Id = Convert.ToInt32(datos.Reader["IdEstilo"]);
+            disco.Edicion.Id = Convert.ToInt32(datos.Reader["IdTipoEdicion"]);
+
+            return disco;
+        }
         public void Modificar(Disco disco) 
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.SetearConsulta("update DISCOS set Titulo = @titulo, FechaLanzamiento = @fecha, CantidadCanciones = @cantidad, UrlImagenTapa = @url, IdEstilo = @idestilo, IdTipoEdicion = @idedicion where Id = @id");
+                datos.SetearConsultaSP("Modificar");
                 datos.SetearParametros("@titulo", disco.Titulo);
                 datos.SetearParametros("@fecha", disco.FechaLanzamiento);
                 datos.SetearParametros("@cantidad", disco.CantidadDeCanciones);
@@ -153,14 +118,12 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally 
             {
                 datos.ConnectionClose();
             }
-            
         }
 
         public void Eliminar(int id)
@@ -218,7 +181,7 @@ namespace Negocio
                                   "and D.Activo = 1 and ";
 
                 if (filtro == "")
-                    return ListaDisco();
+                    return Listar();
 
                 switch (parametro)
                 {
@@ -299,6 +262,7 @@ namespace Negocio
                 datos.ConnectionClose();
             }
         }
+
     }
 
 }

@@ -16,7 +16,7 @@ namespace GestorDiscos
         protected void Page_Load(object sender, EventArgs e)
         {
             DiscosServer discosServer = new DiscosServer();
-            ListaDiscos = discosServer.listarConSP();
+            ListaDiscos = discosServer.Listar();
 
             if (!IsPostBack)
             {

@@ -73,8 +73,6 @@ namespace Negocio
             if (reader != null) 
                 Reader.Close(); 
             conn.Close();
-
         }
-         
     }
 }

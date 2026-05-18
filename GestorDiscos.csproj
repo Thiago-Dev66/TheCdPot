@@ -71,6 +71,7 @@
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
     <Content Include="Discos.aspx" />
+    <Content Include="AltaDisco.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -97,6 +98,13 @@
     </Compile>
     <Compile Include="Discos.aspx.designer.cs">
       <DependentUpon>Discos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AltaDisco.aspx.cs">
+      <DependentUpon>AltaDisco.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaDisco.aspx.designer.cs">
+      <DependentUpon>AltaDisco.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
