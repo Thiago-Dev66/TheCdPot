@@ -47,6 +47,8 @@ namespace GestorDiscos
                     ddlEdicion.SelectedValue = disco.Edicion.Id.ToString();
 
                     btnAgregar.Text = "Modificar";
+                    btnEliminar.Visible = true;
+                    CargarImagen();
                 }
             }
         }
@@ -72,7 +74,27 @@ namespace GestorDiscos
                 throw;
             }
         }
+        protected void CargarImagen()
+        {
+            string placeholder = "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg";
 
+            try
+            {
+                imgCover.ImageUrl = txtImagen.Text;
+                imgCover.AlternateText = "Your image here";
+
+                if (imgCover.ImageUrl == "")
+                {
+                    imgCover.ImageUrl = placeholder;
+                    imgCover.AlternateText = "placeholder";
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+        }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -91,7 +113,7 @@ namespace GestorDiscos
                 disco.Edicion.Id = int.Parse(ddlEdicion.SelectedValue);
                 disco.UrlImagenCover = txtImagen.Text;
 
-                if (Request.QueryString["id"] != null) 
+                if (Request.QueryString["id"] != null)
                 {
                     disco.Id = Convert.ToInt32(Request.QueryString["id"]);
                     negocio.Modificar(disco);
@@ -105,6 +127,35 @@ namespace GestorDiscos
             {
                 Session.Add("error", ex);
                 throw;
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            pnlEliminar.Visible = !pnlEliminar.Visible;
+        }
+
+        protected void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var negocio = new DiscosServer();
+                int id = Convert.ToInt32(Request.QueryString["id"]);
+
+                if (rbtEliminar.Checked)
+                {
+                    negocio.Eliminar(id);
+                    Response.Redirect("Default.aspx", false);
+                }
+                if (rbtDesactivar.Checked)
+                {
+                    negocio.EliminarLogico(id);
+                    Response.Redirect("Default.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
             }
         }
     }
