@@ -13,42 +13,57 @@ namespace GestorDiscos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
             {
-                EstilosServer estilosServer = new EstilosServer();
-                TiposEdicionServer tiposEdicionServer = new TiposEdicionServer();
-
-                //Cargar desplegables desde db:
-                ddlEstilo.DataSource = estilosServer.ListarEstilos();
-
-                //Que quiero que muestre:
-                ddlEstilo.DataTextField = "Descripcion";
-                //Que valor tiene por detras:
-                ddlEstilo.DataValueField = "Id";
-                ddlEstilo.DataBind();
-
-                ddlEdicion.DataSource = tiposEdicionServer.ListEdicion();
-                ddlEdicion.DataTextField = "Description";
-                ddlEdicion.DataValueField = "Id";
-                ddlEdicion.DataBind();
-
-                int id = Request.QueryString["id"] != null ? Convert.ToInt32(Request.QueryString["Id"]) : 0;
-
-                if (id != 0)
+                try
                 {
-                    var negocio = new DiscosServer();
-                    Disco disco = negocio.GetDiscoById(id);
+                    if (!IsPostBack)
+                    {
+                        EstilosServer estilosServer = new EstilosServer();
+                        TiposEdicionServer tiposEdicionServer = new TiposEdicionServer();
 
-                    txtTitulo.Text = disco.Titulo;
-                    txtFechaLanzamiento.Text = disco.FechaLanzamiento.ToString("yyyy-MM-dd");
-                    txtCantidadCanciones.Text = disco.CantidadDeCanciones.ToString();
-                    txtImagen.Text = disco.UrlImagenCover;
-                    ddlEstilo.SelectedValue = disco.Estilo.Id.ToString();
-                    ddlEdicion.SelectedValue = disco.Edicion.Id.ToString();
+                        //Cargar desplegables desde db:
+                        ddlEstilo.DataSource = estilosServer.ListarEstilos();
 
-                    btnAgregar.Text = "Modificar";
-                    btnEliminar.Visible = true;
-                    CargarImagen();
+                        //Que quiero que muestre:
+                        ddlEstilo.DataTextField = "Descripcion";
+                        //Que valor tiene por detras:
+                        ddlEstilo.DataValueField = "Id";
+                        ddlEstilo.DataBind();
+
+                        ddlEdicion.DataSource = tiposEdicionServer.ListEdicion();
+                        ddlEdicion.DataTextField = "Description";
+                        ddlEdicion.DataValueField = "Id";
+                        ddlEdicion.DataBind();
+
+                        int id = Request.QueryString["id"] != null ? Convert.ToInt32(Request.QueryString["Id"]) : 0;
+
+                        if (id != 0)
+                        {
+                            var negocio = new DiscosServer();
+                            Disco disco = negocio.GetDiscoById(id);
+                            bool activo = disco.Activo;
+                            Session.Add("estado", activo);
+
+                            txtTitulo.Text = disco.Titulo;
+                            txtFechaLanzamiento.Text = disco.FechaLanzamiento.ToString("yyyy-MM-dd");
+                            txtCantidadCanciones.Text = disco.CantidadDeCanciones.ToString();
+                            txtImagen.Text = disco.UrlImagenCover;
+                            ddlEstilo.SelectedValue = disco.Estilo.Id.ToString();
+                            ddlEdicion.SelectedValue = disco.Edicion.Id.ToString();
+
+                            btnAgregar.Text = "Modificar";
+                            CargarImagen();
+
+                            if (activo)
+                                btnEliminar.Visible = !btnReactivar.Visible;
+                            else
+                                btnReactivar.Visible = !btnEliminar.Visible;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("error", ex.Message);
                 }
             }
         }
@@ -149,13 +164,30 @@ namespace GestorDiscos
                 }
                 if (rbtDesactivar.Checked)
                 {
-                    negocio.EliminarLogico(id);
+                    negocio.CambiarEstado(id);
                     Response.Redirect("Default.aspx", false);
                 }
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex);
+            }
+        }
+
+        protected void btnReactivar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var negocio = new DiscosServer();
+                int id = Convert.ToInt32(Request.QueryString["id"]);
+                bool estado = (bool)Session["estado"];
+
+                negocio.CambiarEstado(id, !estado);
+                Response.Redirect("Default.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.Message);
             }
         }
     }

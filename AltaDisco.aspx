@@ -20,6 +20,7 @@
             </div>
             <asp:Button Text="Agregar" ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn btn-primary" runat="server" />
             <asp:Button Text="Cancelar" ID="btnCancelar" PostBackUrl="~/Default.aspx" CssClass="btn btn-primary" runat="server" />
+            <asp:Button ID="btnReactivar" CssClass="btn btn-warning" Text="Reactivar" OnClick="btnReactivar_Click" Visible="false" runat="server" />
 
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
@@ -38,6 +39,7 @@
                     </asp:Panel>
                 </ContentTemplate>
             </asp:UpdatePanel>
+
         </div>
 
         <div class="col-6">

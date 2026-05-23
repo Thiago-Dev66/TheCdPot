@@ -34,6 +34,7 @@ namespace Negocio
                     disco.Estilo.Descripcion = (string)datos.Reader["Estilo"];
                     disco.Edicion = new TipoEdicion();
                     disco.Edicion.Description = (string)datos.Reader["Formato"];
+                    disco.Activo = Convert.ToBoolean(datos.Reader["Activo"]);
 
                     discosLista.Add(disco);
                 }
@@ -94,6 +95,7 @@ namespace Negocio
             disco.FechaLanzamiento = (DateTime)datos.Reader["FechaLanzamiento"];
             disco.CantidadDeCanciones = (int)datos.Reader["CantidadCanciones"];
             disco.UrlImagenCover = (string)datos.Reader["UrlImagenTapa"];
+            disco.Activo = Convert.ToBoolean(datos.Reader["Activo"]);
             disco.Estilo.Id = Convert.ToInt32(datos.Reader["IdEstilo"]);
             disco.Edicion.Id = Convert.ToInt32(datos.Reader["IdTipoEdicion"]);
 
@@ -145,14 +147,15 @@ namespace Negocio
             }
         }
 
-        public void EliminarLogico(int id)
+        public void CambiarEstado(int id, bool estado = false)
         {
             AccesoDatos datos = new AccesoDatos();
             Disco disco = new Disco();
             try
             {
-                datos.SetearConsulta("update discos set activo = 0 where id = @Id");
-                datos.SetearParametros("@Id", id);
+                datos.SetearConsultaSP("CambiarEstado");
+                datos.SetearParametros("@id", id);
+                datos.SetearParametros("activo", estado);
                 datos.EjecutarAccion();
 
             }
